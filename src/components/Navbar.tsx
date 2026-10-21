@@ -79,7 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* GitHub Repository */}
           <a
-            href="https://github.com/Ayontikapal"
+            href="https://github.com/Ayontikapal/StackLab"
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub Repository"

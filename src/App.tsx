@@ -163,7 +163,7 @@ const AppLayout: React.FC = () => {
             <span>Stack-Based Expression Visualizer</span>
           </div>
           <div className="font-mono text-[11px] text-neutral-400">
-            Deterministic step traces &bull; React, TypeScript &amp; Motion
+            Built with &bull; React, TypeScript &amp; Motion
           </div>
         </div>
       </footer>
