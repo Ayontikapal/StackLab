@@ -47,7 +47,7 @@ export const PostfixStream: React.FC<PostfixStreamProps> = ({
             <Terminal className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-slate-100 flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-slate-500 flex items-center gap-2">
               Postfix Output Stream
               <span className="px-2 py-0.5 text-[11px] font-mono rounded-full bg-slate-800 text-slate-300 border border-slate-700">
                 {items.length} tokens
