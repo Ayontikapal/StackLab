@@ -32,7 +32,6 @@
   - Common pitfalls and real-world compiler/parser applications
 
 ### 🎨 4. Premium Developer-Tool Aesthetics
-- **Bespoke Theme Palette**: Designed with sleek surfaces, subtle border gradients, and an electric blue primary accent (`#155DFC`), deep dark background (`#0A0A0A`), surface dark cards (`#171717`), emerald success indicators (`#00BC7D`), and amber token highlights (`#DE900B`).
 - **Smooth Playback Controls**: Step Forward, Step Backward, Auto-Play with customizable playback speed (0.5x, 1x, 1.5x, 2x), and instant Reset.
 - **Auto-Navigate & Scroll**: Clicking "Convert Expression" or "Evaluate Expression" immediately triggers playback and smoothly anchors the user directly to the active visualizer stack.
 - **Confetti Celebration**: Fires upon animation completion when expressions successfully evaluate!
