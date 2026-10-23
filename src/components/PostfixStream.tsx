@@ -8,22 +8,6 @@ interface PostfixStreamProps {
   reducedMotion?: boolean;
 }
 
-function getItemBadgeStyle(val: string): { bg: string; text: string; border: string } {
-  if (['+', '-', '*', '/', '^', '%'].includes(val)) {
-    return {
-      bg: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/40',
-      text: 'text-cyan-300',
-      border: 'border-cyan-500/40',
-    };
-  }
-  // Numeric or variable operand
-  return {
-    bg: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/40',
-    text: 'text-emerald-300',
-    border: 'border-emerald-500/40',
-  };
-}
-
 export const PostfixStream: React.FC<PostfixStreamProps> = ({
   items,
   reducedMotion = false,
@@ -39,37 +23,37 @@ export const PostfixStream: React.FC<PostfixStreamProps> = ({
   };
 
   return (
-    <div className="w-full rounded-2xl glass-panel p-4 flex flex-col gap-3">
+    <div className="clean-card p-3.5 sm:p-5 flex flex-col gap-2.5 sm:gap-3 border-neutral-200 dark:border-neutral-800">
       {/* Title & Copy Bar */}
-      <div className="flex items-center justify-between pb-2 border-b border-slate-700/50">
+      <div className="flex items-center justify-between pb-2 border-b border-neutral-100 dark:border-neutral-800">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+          <div className="p-1.5 rounded-md bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 shrink-0">
             <Terminal className="w-4 h-4" />
           </div>
-          <div>
-            <h3 className="text-sm font-semibold text-slate-500 flex items-center gap-2">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <h3 className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-neutral-100">
               Postfix Output Stream
-              <span className="px-2 py-0.5 text-[11px] font-mono rounded-full bg-slate-800 text-slate-300 border border-slate-700">
-                {items.length} tokens
-              </span>
             </h3>
+            <span className="px-1.5 py-0.2 text-[10px] sm:text-[11px] font-mono rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700 font-medium">
+              {items.length} tokens
+            </span>
           </div>
         </div>
 
         {items.length > 0 && (
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 transition-colors"
+            className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 transition-colors cursor-pointer shrink-0 active:scale-95"
             title="Copy postfix expression"
           >
             {copied ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-emerald-400">Copied</span>
+                <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span className="text-emerald-600 dark:text-emerald-400 font-semibold">Copied</span>
               </>
             ) : (
               <>
-                <Copy className="w-3.5 h-3.5 text-slate-400" />
+                <Copy className="w-3.5 h-3.5 text-neutral-500" />
                 <span>Copy</span>
               </>
             )}
@@ -77,8 +61,8 @@ export const PostfixStream: React.FC<PostfixStreamProps> = ({
         )}
       </div>
 
-      {/* Stream Chips Area */}
-      <div className="min-h-[64px] rounded-xl bg-slate-950/70 border border-slate-800 p-3 flex flex-wrap items-center gap-2 overflow-x-auto">
+      {/* Stream Chips Area (Horizontal Scroll on Mobile) */}
+      <div className="min-h-[58px] sm:min-h-[64px] rounded-xl bg-neutral-50/80 dark:bg-neutral-900/60 border border-neutral-200 dark:border-neutral-800 p-2.5 sm:p-3 flex items-center gap-2 overflow-x-auto no-scrollbar">
         <AnimatePresence mode="popLayout" initial={false}>
           {items.length === 0 ? (
             <motion.div
@@ -86,13 +70,12 @@ export const PostfixStream: React.FC<PostfixStreamProps> = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="text-xs text-slate-500 font-mono italic"
+              className="text-xs text-neutral-400 dark:text-neutral-500 font-mono italic"
             >
-              Output stream is currently empty. Converted tokens will stream in left-to-right...
+              Output stream empty. Tokens will stream in left-to-right...
             </motion.div>
           ) : (
             items.map((item, idx) => {
-              const style = getItemBadgeStyle(item.value);
               const isLastAdded = idx === items.length - 1;
 
               return (
@@ -123,11 +106,14 @@ export const PostfixStream: React.FC<PostfixStreamProps> = ({
                       ? { opacity: 0 }
                       : { opacity: 0, scale: 0.6, y: 16 }
                   }
-                  className={`relative flex items-center justify-center min-w-[40px] h-10 px-3 rounded-lg border font-mono font-bold text-base shadow-sm ${style.bg} ${style.border} ${isLastAdded ? 'ring-2 ring-emerald-400/50 shadow-emerald-500/20 shadow-md' : ''
-                    }`}
+                  className={`relative flex items-center justify-center min-w-[36px] sm:min-w-[40px] h-9 sm:h-10 px-2.5 sm:px-3 rounded-lg border font-mono font-bold text-sm sm:text-base shadow-2xs shrink-0 ${
+                    ['+', '-', '*', '/', '^', '%'].includes(item.value)
+                      ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-200 border-amber-300 dark:border-amber-700/80'
+                      : 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-200 border-emerald-300 dark:border-emerald-700/80'
+                  } ${isLastAdded ? 'ring-2 ring-emerald-500/50 shadow-emerald-500/10 shadow-sm' : ''}`}
                 >
-                  <span className="text-white drop-shadow-sm">{item.value}</span>
-                  <span className="absolute -top-2 -right-1 text-[9px] font-mono px-1 rounded bg-slate-800 text-slate-400 border border-slate-700">
+                  <span>{item.value}</span>
+                  <span className="absolute -top-2 -right-1 text-[8px] sm:text-[9px] font-mono px-1 rounded bg-white dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700">
                     {idx + 1}
                   </span>
                 </motion.div>
@@ -139,9 +125,9 @@ export const PostfixStream: React.FC<PostfixStreamProps> = ({
 
       {/* Full Plaintext Representation */}
       {items.length > 0 && (
-        <div className="flex items-center justify-between text-xs font-mono text-slate-400 px-1">
+        <div className="flex flex-col xs:flex-row xs:items-center xs:justify-between gap-1 text-xs font-mono text-neutral-500 px-0.5">
           <span>Expression string:</span>
-          <span className="font-semibold text-emerald-300 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
+          <span className="font-semibold text-emerald-700 dark:text-emerald-300 bg-neutral-100 dark:bg-neutral-900 px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-800 break-all self-start xs:self-auto">
             {formattedString}
           </span>
         </div>

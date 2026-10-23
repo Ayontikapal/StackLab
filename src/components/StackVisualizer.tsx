@@ -54,43 +54,45 @@ export const StackVisualizer: React.FC<StackVisualizerProps> = ({
   const topIndex = items.length - 1;
 
   return (
-    <div className="clean-card p-4 sm:p-5 flex flex-col h-full w-full">
+    <div className="clean-card p-3.5 sm:p-5 flex flex-col h-full w-full">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-neutral-100 dark:border-neutral-800 mb-3">
+      <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-neutral-100 dark:border-neutral-800 mb-2.5 sm:mb-3">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-md bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60">
+          <div className="p-1.5 rounded-md bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 shrink-0">
             <Layers className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-neutral-100 flex items-center gap-1.5">
-              <span>{title}</span>
-              <span className="font-mono text-[11px] px-1.5 py-0.2 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 font-medium border border-neutral-200 dark:border-neutral-700">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <h3 className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+                {title}
+              </h3>
+              <span className="font-mono text-[10px] sm:text-[11px] px-1.5 py-0.2 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 font-medium border border-neutral-200 dark:border-neutral-700">
                 Nodes: {items.length}
               </span>
-              <span className="inline-flex items-center gap-1 text-[10px] font-mono font-medium px-1.5 py-0.2 rounded bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60">
-                <GitCommit className="w-3 h-3" />
+              <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-mono font-medium px-1.5 py-0.2 rounded bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60">
+                <GitCommit className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                 Linked List
               </span>
-            </h3>
-            <p className="text-[11px] text-neutral-500">{subtitle}</p>
+            </div>
+            <p className="text-[10px] sm:text-[11px] text-neutral-500 line-clamp-1">{subtitle}</p>
           </div>
         </div>
       </div>
 
       {/* Stack Container */}
-      <div className="relative flex-1 min-h-[280px] max-h-[380px] rounded-b-xl p-3 flex flex-col justify-end bg-neutral-50/70 dark:bg-neutral-950/60 stack-wall overflow-hidden">
+      <div className="relative flex-1 min-h-[220px] sm:min-h-[280px] max-h-[300px] sm:max-h-[380px] rounded-b-xl p-2.5 sm:p-3 flex flex-col justify-end bg-neutral-50/70 dark:bg-neutral-950/60 stack-wall overflow-y-auto no-scrollbar">
         {/* Top opening guide */}
-        <div className="absolute top-0 left-0 right-0 h-5 border-b border-dashed border-neutral-200 dark:border-neutral-800 flex items-center justify-between px-3 pointer-events-none">
-          <span className="text-[9px] uppercase font-mono tracking-wider text-indigo-600 dark:text-indigo-400 font-semibold bg-white dark:bg-neutral-950 px-1.5 rounded">
+        <div className="sticky top-0 z-20 -mt-1 mb-1 left-0 right-0 h-5 border-b border-dashed border-neutral-200 dark:border-neutral-800 flex items-center justify-between px-2 bg-neutral-50/90 dark:bg-neutral-950/90 backdrop-blur-xs">
+          <span className="text-[8px] sm:text-[9px] uppercase font-mono tracking-wider text-indigo-600 dark:text-indigo-400 font-semibold bg-white dark:bg-neutral-900 px-1 rounded">
             topNode &rarr; Head
           </span>
-          <span className="text-[9px] uppercase font-mono tracking-wider text-neutral-400 dark:text-neutral-500 bg-white dark:bg-neutral-950 px-1.5 rounded">
-            Stack Top Opening
+          <span className="text-[8px] sm:text-[9px] uppercase font-mono tracking-wider text-neutral-400 dark:text-neutral-500 bg-white dark:bg-neutral-900 px-1 rounded">
+            Top Opening
           </span>
         </div>
 
         {/* Stack Items (rendered bottom-to-top) */}
-        <div className="relative z-10 w-full flex flex-col-reverse gap-2 pt-6 pb-1">
+        <div className="relative z-10 w-full flex flex-col-reverse gap-1.5 sm:gap-2 pt-4 pb-1">
           <AnimatePresence mode="popLayout" initial={false}>
             {items.length === 0 ? (
               <motion.div
@@ -99,9 +101,9 @@ export const StackVisualizer: React.FC<StackVisualizerProps> = ({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.15 }}
-                className="py-10 px-4 text-center border border-dashed border-neutral-200 dark:border-neutral-800 rounded-lg text-neutral-400 dark:text-neutral-600 text-xs font-mono"
+                className="py-8 sm:py-10 px-3 sm:px-4 text-center border border-dashed border-neutral-200 dark:border-neutral-800 rounded-lg text-neutral-400 dark:text-neutral-600 text-xs font-mono"
               >
-                <div className="font-medium text-neutral-500 dark:text-neutral-500">{emptyMessage}</div>
+                <div className="font-medium text-neutral-600 dark:text-neutral-400 text-xs">{emptyMessage}</div>
                 <div className="text-[10px] text-neutral-400 dark:text-neutral-600 mt-1">
                   topNode = null &bull; Push will create first StackNode
                 </div>
@@ -135,22 +137,22 @@ export const StackVisualizer: React.FC<StackVisualizerProps> = ({
                       stiffness: 450,
                       damping: 30,
                     }}
-                    className={`relative w-full rounded-lg px-3 py-2.5 border shadow-2xs flex items-center justify-between transition-colors ${style.bg} ${style.border} ${style.ring}`}
+                    className={`relative w-full rounded-lg px-2.5 sm:px-3 py-1.5 sm:py-2.5 border shadow-2xs flex items-center justify-between transition-colors ${style.bg} ${style.border} ${style.ring}`}
                   >
-                    <div className="flex items-center gap-2.5">
-                      <span className="w-7 h-7 rounded bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center font-mono font-bold text-sm text-neutral-900 dark:text-neutral-100 shadow-2xs">
+                    <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                      <span className="w-6 h-6 sm:w-7 sm:h-7 rounded bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center font-mono font-bold text-xs sm:text-sm text-neutral-900 dark:text-neutral-100 shadow-2xs shrink-0">
                         {item.value}
                       </span>
-                      <div className="flex flex-col text-left">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-xs font-medium text-neutral-800 dark:text-neutral-200">
+                      <div className="flex flex-col text-left min-w-0">
+                        <div className="flex items-center gap-1 sm:gap-1.5">
+                          <span className="text-[11px] sm:text-xs font-medium text-neutral-800 dark:text-neutral-200 truncate">
                             {item.label || (['+', '-', '*', '/', '^', '%'].includes(item.value) ? 'Operator' : 'Operand')}
                           </span>
-                          <span className="text-[10px] font-mono text-neutral-400">
-                            (Node #{index})
+                          <span className="text-[9px] sm:text-[10px] font-mono text-neutral-400 shrink-0">
+                            (#{index})
                           </span>
                         </div>
-                        <span className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400">
+                        <span className="text-[9px] sm:text-[10px] font-mono text-indigo-600 dark:text-indigo-400 truncate">
                           next &rarr; {index === 0 ? 'null (Base)' : `Node #${index - 1}`}
                         </span>
                       </div>
@@ -162,10 +164,10 @@ export const StackVisualizer: React.FC<StackVisualizerProps> = ({
                         layout={!reducedMotion}
                         initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: 6 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="flex items-center gap-1 px-2 py-0.5 rounded bg-indigo-600 text-white text-[10px] font-mono font-bold tracking-wide uppercase shadow-2xs"
+                        className="flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded bg-indigo-600 text-white text-[9px] sm:text-[10px] font-mono font-bold tracking-wide uppercase shadow-2xs shrink-0 ml-1.5"
                       >
-                        <ArrowLeft className="w-3 h-3 text-indigo-200" />
-                        <span>HEAD / TOP</span>
+                        <ArrowLeft className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-indigo-200" />
+                        <span>TOP</span>
                       </motion.div>
                     )}
                   </motion.div>
@@ -176,9 +178,9 @@ export const StackVisualizer: React.FC<StackVisualizerProps> = ({
         </div>
 
         {/* Floor Plate */}
-        <div className="w-full h-3 mt-2 rounded bg-indigo-600/90 dark:bg-indigo-500/80 flex items-center justify-between px-2 shadow-2xs">
+        <div className="w-full h-3 mt-1.5 rounded bg-indigo-600/90 dark:bg-indigo-500/80 flex items-center justify-between px-2 shadow-2xs shrink-0">
           <span className="text-[8px] uppercase tracking-widest text-indigo-100 font-mono font-semibold">
-            Base of Stack
+            Base
           </span>
           <span className="text-[8px] uppercase tracking-widest text-indigo-200 font-mono font-medium">
             Node[0].next &rarr; null

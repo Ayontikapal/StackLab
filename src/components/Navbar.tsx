@@ -13,20 +13,23 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleTheme,
 }) => {
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-neutral-200 dark:border-neutral-800 bg-white/90 dark:bg-[#0c0d0e]/90 backdrop-blur-md transition-colors">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
+    <header className="sticky top-0 z-40 w-full border-b border-neutral-200/90 dark:border-neutral-800/90 bg-white/90 dark:bg-[#0c0d0e]/90 backdrop-blur-md transition-colors pt-safe">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 h-13 sm:h-14 flex items-center justify-between gap-3">
         {/* Brand / Logo */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 sm:gap-6">
           <Link
             to="/converter"
-            className="flex items-center gap-2 cursor-pointer select-none group"
+            className="flex items-center gap-2 cursor-pointer select-none group active:scale-95 transition-transform"
           >
-            <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center shadow-sm group-hover:bg-indigo-700 transition-colors">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center shadow-2xs group-hover:bg-indigo-700 transition-colors">
               <Layers className="w-4 h-4" />
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-base text-neutral-900 dark:text-neutral-100 tracking-tight">
+              <span className="font-bold text-sm sm:text-base text-neutral-900 dark:text-neutral-100 tracking-tight">
                 StackLab
+              </span>
+              <span className="hidden xs:inline-flex text-[9px] font-mono px-1.5 py-0.2 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-800/60 font-semibold">
+                v2.0
               </span>
             </div>
           </Link>

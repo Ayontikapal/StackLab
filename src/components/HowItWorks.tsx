@@ -13,15 +13,15 @@ import {
 
 export const HowItWorks = () => {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4 sm:gap-6">
       {/* Top Banner */}
-      <div className="clean-card p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-neutral-200 dark:border-neutral-800">
+      <div className="clean-card p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 border-neutral-200 dark:border-neutral-800">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60">
-            <BookOpen className="w-6 h-6" />
+          <div className="p-2 sm:p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 shrink-0">
+            <BookOpen className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
           <div>
-            <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-100">
+            <h2 className="text-base sm:text-xl font-bold text-neutral-900 dark:text-neutral-100">
               How It Works: Expression Processing with Stacks
             </h2>
             <p className="text-xs sm:text-sm text-neutral-500">
@@ -32,11 +32,11 @@ export const HowItWorks = () => {
       </div>
 
       {/* Grid 1: Notation & Parentheses Comparison */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {/* Infix vs Postfix Comparison */}
-        <div className="clean-card p-5 flex flex-col gap-3 border-neutral-200 dark:border-neutral-800">
+        <div className="clean-card p-4 sm:p-5 flex flex-col gap-3 border-neutral-200 dark:border-neutral-800">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-md bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400">
+            <div className="p-1.5 rounded-md bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 shrink-0">
               <Layers className="w-4 h-4" />
             </div>
             <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 text-xs uppercase tracking-wider">
@@ -70,9 +70,9 @@ export const HowItWorks = () => {
         </div>
 
         {/* Why Stacks? */}
-        <div className="clean-card p-5 flex flex-col gap-3 border-neutral-200 dark:border-neutral-800">
+        <div className="clean-card p-4 sm:p-5 flex flex-col gap-3 border-neutral-200 dark:border-neutral-800">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-md bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400">
+            <div className="p-1.5 rounded-md bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 shrink-0">
               <CheckCircle className="w-4 h-4" />
             </div>
             <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 text-xs uppercase tracking-wider">
@@ -101,15 +101,15 @@ export const HowItWorks = () => {
       </div>
 
       {/* Operator Precedence & Associativity Table */}
-      <div className="clean-card p-5 flex flex-col gap-3 border-neutral-200 dark:border-neutral-800">
+      <div className="clean-card p-4 sm:p-5 flex flex-col gap-3 border-neutral-200 dark:border-neutral-800">
         <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 text-xs uppercase tracking-wider">
           Operator Precedence &amp; Associativity Table
         </h3>
         <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
           When comparing incoming operators with the top of the stack, higher precedence operators execute first. Equal precedence operators follow their associativity.
         </p>
-        <div className="overflow-x-auto rounded-lg border border-neutral-200 dark:border-neutral-800">
-          <table className="w-full text-left text-xs font-mono">
+        <div className="overflow-x-auto no-scrollbar rounded-lg border border-neutral-200 dark:border-neutral-800">
+          <table className="w-full text-left text-xs font-mono whitespace-nowrap sm:whitespace-normal">
             <thead className="bg-neutral-50 dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-800">
               <tr>
                 <th className="py-2.5 px-3">Operator</th>
@@ -154,11 +154,11 @@ export const HowItWorks = () => {
       </div>
 
       {/* Grid 2: Algorithms Step-by-Step Breakdown */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {/* Shunting-Yard Rules */}
-        <div className="clean-card p-5 flex flex-col gap-3 border-neutral-200 dark:border-neutral-800">
+        <div className="clean-card p-4 sm:p-5 flex flex-col gap-3 border-neutral-200 dark:border-neutral-800">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-md bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400">
+            <div className="p-1.5 rounded-md bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 shrink-0">
               <Binary className="w-4 h-4" />
             </div>
             <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 text-xs uppercase tracking-wider">
@@ -175,9 +175,9 @@ export const HowItWorks = () => {
         </div>
 
         {/* Postfix Evaluation Rules */}
-        <div className="clean-card p-5 flex flex-col gap-3 border-neutral-200 dark:border-neutral-800">
+        <div className="clean-card p-4 sm:p-5 flex flex-col gap-3 border-neutral-200 dark:border-neutral-800">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-md bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400">
+            <div className="p-1.5 rounded-md bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 shrink-0">
               <Cpu className="w-4 h-4" />
             </div>
             <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 text-xs uppercase tracking-wider">

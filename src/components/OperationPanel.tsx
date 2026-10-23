@@ -15,28 +15,28 @@ export const OperationPanel: React.FC<OperationPanelProps> = ({
   const { poppedOperands, activeCalculation, finalResult, action, error } = step;
 
   return (
-    <div className="clean-card p-4 sm:p-5 flex flex-col gap-3.5 border-neutral-200 dark:border-neutral-800">
+    <div className="clean-card p-3.5 sm:p-5 flex flex-col gap-2.5 sm:gap-3.5 border-neutral-200 dark:border-neutral-800">
       {/* Header */}
-      <div className="flex items-center justify-between pb-2.5 border-b border-neutral-100 dark:border-neutral-800">
+      <div className="flex items-center justify-between pb-2 sm:pb-2.5 border-b border-neutral-100 dark:border-neutral-800">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-md bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60">
+          <div className="p-1.5 rounded-md bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 shrink-0">
             <Cpu className="w-4 h-4" />
           </div>
           <div>
             <h3 className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-neutral-100">
               Operation Panel
             </h3>
-            <p className="text-[11px] text-neutral-500">Current execution action &amp; calculation</p>
+            <p className="text-[10px] sm:text-[11px] text-neutral-500">Current execution action &amp; calculation</p>
           </div>
         </div>
 
-        <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-medium">
+        <span className="text-[10px] sm:text-[11px] font-mono px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-medium shrink-0">
           ALU Register
         </span>
       </div>
 
       {/* Main Calculation Stage */}
-      <div className="min-h-[140px] rounded-xl bg-neutral-50/80 dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 p-4 flex flex-col items-center justify-center relative overflow-hidden">
+      <div className="min-h-[120px] sm:min-h-[140px] rounded-xl bg-neutral-50/80 dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 p-3 sm:p-4 flex flex-col items-center justify-center relative overflow-hidden">
         <AnimatePresence mode="wait">
           {error ? (
             <motion.div
@@ -46,7 +46,7 @@ export const OperationPanel: React.FC<OperationPanelProps> = ({
               exit={{ opacity: 0 }}
               className="flex items-center gap-2 text-red-600 dark:text-red-400 text-xs sm:text-sm font-medium"
             >
-              <AlertTriangle className="w-5 h-5 shrink-0" />
+              <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
               <span>{error}</span>
             </motion.div>
           ) : finalResult !== null && finalResult !== undefined && action === 'complete' ? (
@@ -61,10 +61,10 @@ export const OperationPanel: React.FC<OperationPanelProps> = ({
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Evaluation Complete</span>
               </div>
-              <div className="text-3xl font-mono font-bold text-neutral-900 dark:text-white">
+              <div className="text-2xl sm:text-3xl font-mono font-bold text-neutral-900 dark:text-white">
                 {finalResult}
               </div>
-              <p className="text-[11px] text-neutral-500">
+              <p className="text-[10px] sm:text-[11px] text-neutral-500">
                 Single remaining value on stack is the final result.
               </p>
             </motion.div>
@@ -74,36 +74,36 @@ export const OperationPanel: React.FC<OperationPanelProps> = ({
               initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: -10 }}
-              className="flex flex-col items-center gap-3 w-full"
+              className="flex flex-col items-center gap-2.5 sm:gap-3 w-full"
             >
               {/* Register Chips */}
-              <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center">
+              <div className="flex items-center gap-1.5 sm:gap-3 flex-wrap justify-center">
                 {/* Left Operand (a) */}
                 <div className="flex flex-col items-center">
-                  <span className="text-[10px] font-mono text-neutral-500 uppercase">
+                  <span className="text-[9px] sm:text-[10px] font-mono text-neutral-500 uppercase">
                     Left (a)
                   </span>
-                  <div className="px-3.5 py-1.5 rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 font-mono font-bold text-base shadow-2xs">
+                  <div className="px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 font-mono font-bold text-sm sm:text-base shadow-2xs">
                     {poppedOperands?.left.value ?? activeCalculation?.leftVal}
                   </div>
                 </div>
 
                 {/* Operator */}
                 <div className="flex flex-col items-center">
-                  <span className="text-[10px] font-mono text-neutral-500 uppercase">
-                    Operator
+                  <span className="text-[9px] sm:text-[10px] font-mono text-neutral-500 uppercase">
+                    Op
                   </span>
-                  <div className="w-9 h-9 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-300 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 font-mono font-bold text-base flex items-center justify-center shadow-2xs">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-300 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 font-mono font-bold text-sm sm:text-base flex items-center justify-center shadow-2xs">
                     {poppedOperands?.operator ?? activeCalculation?.operator}
                   </div>
                 </div>
 
                 {/* Right Operand (b) */}
                 <div className="flex flex-col items-center">
-                  <span className="text-[10px] font-mono text-neutral-500 uppercase">
+                  <span className="text-[9px] sm:text-[10px] font-mono text-neutral-500 uppercase">
                     Right (b)
                   </span>
-                  <div className="px-3.5 py-1.5 rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 font-mono font-bold text-base shadow-2xs">
+                  <div className="px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 font-mono font-bold text-sm sm:text-base shadow-2xs">
                     {poppedOperands?.right.value ?? activeCalculation?.rightVal}
                   </div>
                 </div>
@@ -111,13 +111,13 @@ export const OperationPanel: React.FC<OperationPanelProps> = ({
                 {/* Computed Result */}
                 {activeCalculation && (
                   <>
-                    <ArrowRight className="w-4 h-4 text-neutral-400 mx-1 hidden sm:block" />
+                    <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-neutral-400 mx-0.5" />
 
                     <div className="flex flex-col items-center">
-                      <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold uppercase">
+                      <span className="text-[9px] sm:text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold uppercase">
                         Result
                       </span>
-                      <div className="px-4 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-700 text-emerald-800 dark:text-emerald-200 font-mono font-bold text-base shadow-2xs">
+                      <div className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-700 text-emerald-800 dark:text-emerald-200 font-mono font-bold text-sm sm:text-base shadow-2xs">
                         {activeCalculation.result}
                       </div>
                     </div>
@@ -126,10 +126,10 @@ export const OperationPanel: React.FC<OperationPanelProps> = ({
               </div>
 
               {/* Explanatory Note on Right-first pop */}
-              <div className="text-xs font-mono text-neutral-600 dark:text-neutral-400 bg-white dark:bg-neutral-900 px-3 py-1 rounded-md border border-neutral-200 dark:border-neutral-800 text-center">
+              <div className="text-[11px] sm:text-xs font-mono text-neutral-600 dark:text-neutral-400 bg-white dark:bg-neutral-900 px-2.5 sm:px-3 py-1 rounded-md border border-neutral-200 dark:border-neutral-800 text-center leading-relaxed">
                 {action === 'pop_operands' && (
                   <span>
-                    Popped right operand <strong className="text-neutral-900 dark:text-neutral-100">({poppedOperands?.right.value})</strong> first, then left operand <strong className="text-neutral-900 dark:text-neutral-100">({poppedOperands?.left.value})</strong>.
+                    Popped right <strong className="text-neutral-900 dark:text-neutral-100">({poppedOperands?.right.value})</strong>, then left <strong className="text-neutral-900 dark:text-neutral-100">({poppedOperands?.left.value})</strong>.
                   </span>
                 )}
                 {action === 'evaluating' && (
@@ -139,7 +139,7 @@ export const OperationPanel: React.FC<OperationPanelProps> = ({
                 )}
                 {action === 'push_result' && (
                   <span>
-                    Pushing result <strong className="text-emerald-600 dark:text-emerald-400">({activeCalculation?.result})</strong> back onto operand stack.
+                    Pushing result <strong className="text-emerald-600 dark:text-emerald-400">({activeCalculation?.result})</strong> back onto stack.
                   </span>
                 )}
               </div>
