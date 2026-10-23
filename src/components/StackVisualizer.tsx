@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { StackItem } from '../core/types';
-import { Layers, ArrowLeft } from 'lucide-react';
+import { Layers, ArrowLeft, GitCommit } from 'lucide-react';
 
 interface StackVisualizerProps {
   items: StackItem[];
@@ -47,7 +47,7 @@ function getBlockStyle(val: string, isTop: boolean): { bg: string; border: strin
 export const StackVisualizer: React.FC<StackVisualizerProps> = ({
   items,
   title = 'Operator Stack',
-  subtitle = 'LIFO: Last-In, First-Out',
+  subtitle = 'LIFO: Last-In, First-Out (Linked List Implementation)',
   reducedMotion = false,
   emptyMessage = 'Stack is empty',
 }) => {
@@ -65,7 +65,11 @@ export const StackVisualizer: React.FC<StackVisualizerProps> = ({
             <h3 className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-neutral-100 flex items-center gap-1.5">
               <span>{title}</span>
               <span className="font-mono text-[11px] px-1.5 py-0.2 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 font-medium border border-neutral-200 dark:border-neutral-700">
-                Size: {items.length}
+                Nodes: {items.length}
+              </span>
+              <span className="inline-flex items-center gap-1 text-[10px] font-mono font-medium px-1.5 py-0.2 rounded bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60">
+                <GitCommit className="w-3 h-3" />
+                Linked List
               </span>
             </h3>
             <p className="text-[11px] text-neutral-500">{subtitle}</p>
@@ -76,8 +80,11 @@ export const StackVisualizer: React.FC<StackVisualizerProps> = ({
       {/* Stack Container */}
       <div className="relative flex-1 min-h-[280px] max-h-[380px] rounded-b-xl p-3 flex flex-col justify-end bg-neutral-50/70 dark:bg-neutral-950/60 stack-wall overflow-hidden">
         {/* Top opening guide */}
-        <div className="absolute top-0 left-0 right-0 h-4 border-b border-dashed border-neutral-200 dark:border-neutral-800 flex items-center justify-center pointer-events-none">
-          <span className="text-[9px] uppercase font-mono tracking-wider text-neutral-400 dark:text-neutral-500 bg-white dark:bg-neutral-950 px-2 rounded">
+        <div className="absolute top-0 left-0 right-0 h-5 border-b border-dashed border-neutral-200 dark:border-neutral-800 flex items-center justify-between px-3 pointer-events-none">
+          <span className="text-[9px] uppercase font-mono tracking-wider text-indigo-600 dark:text-indigo-400 font-semibold bg-white dark:bg-neutral-950 px-1.5 rounded">
+            topNode &rarr; Head
+          </span>
+          <span className="text-[9px] uppercase font-mono tracking-wider text-neutral-400 dark:text-neutral-500 bg-white dark:bg-neutral-950 px-1.5 rounded">
             Stack Top Opening
           </span>
         </div>
@@ -95,8 +102,8 @@ export const StackVisualizer: React.FC<StackVisualizerProps> = ({
                 className="py-10 px-4 text-center border border-dashed border-neutral-200 dark:border-neutral-800 rounded-lg text-neutral-400 dark:text-neutral-600 text-xs font-mono"
               >
                 <div className="font-medium text-neutral-500 dark:text-neutral-500">{emptyMessage}</div>
-                <div className="text-[10px] text-neutral-400 dark:text-neutral-600 mt-0.5">
-                  Elements will push into this container
+                <div className="text-[10px] text-neutral-400 dark:text-neutral-600 mt-1">
+                  topNode = null &bull; Push will create first StackNode
                 </div>
               </motion.div>
             ) : (
@@ -135,11 +142,16 @@ export const StackVisualizer: React.FC<StackVisualizerProps> = ({
                         {item.value}
                       </span>
                       <div className="flex flex-col text-left">
-                        <span className="text-xs font-medium text-neutral-800 dark:text-neutral-200">
-                          {item.label || (['+', '-', '*', '/', '^', '%'].includes(item.value) ? 'Operator' : 'Operand')}
-                        </span>
-                        <span className="text-[10px] font-mono text-neutral-400">
-                          Index #{index}
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs font-medium text-neutral-800 dark:text-neutral-200">
+                            {item.label || (['+', '-', '*', '/', '^', '%'].includes(item.value) ? 'Operator' : 'Operand')}
+                          </span>
+                          <span className="text-[10px] font-mono text-neutral-400">
+                            (Node #{index})
+                          </span>
+                        </div>
+                        <span className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400">
+                          next &rarr; {index === 0 ? 'null (Base)' : `Node #${index - 1}`}
                         </span>
                       </div>
                     </div>
@@ -153,7 +165,7 @@ export const StackVisualizer: React.FC<StackVisualizerProps> = ({
                         className="flex items-center gap-1 px-2 py-0.5 rounded bg-indigo-600 text-white text-[10px] font-mono font-bold tracking-wide uppercase shadow-2xs"
                       >
                         <ArrowLeft className="w-3 h-3 text-indigo-200" />
-                        <span>TOP</span>
+                        <span>HEAD / TOP</span>
                       </motion.div>
                     )}
                   </motion.div>
@@ -164,9 +176,12 @@ export const StackVisualizer: React.FC<StackVisualizerProps> = ({
         </div>
 
         {/* Floor Plate */}
-        <div className="w-full h-2.5 mt-2 rounded bg-indigo-600/90 dark:bg-indigo-500/80 flex items-center justify-center shadow-2xs">
+        <div className="w-full h-3 mt-2 rounded bg-indigo-600/90 dark:bg-indigo-500/80 flex items-center justify-between px-2 shadow-2xs">
           <span className="text-[8px] uppercase tracking-widest text-indigo-100 font-mono font-semibold">
-            Base
+            Base of Stack
+          </span>
+          <span className="text-[8px] uppercase tracking-widest text-indigo-200 font-mono font-medium">
+            Node[0].next &rarr; null
           </span>
         </div>
       </div>

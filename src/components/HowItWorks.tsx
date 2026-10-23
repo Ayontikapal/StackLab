@@ -93,6 +93,9 @@ export const HowItWorks = () => {
             <li>
               <strong className="text-neutral-900 dark:text-neutral-100">Operand Popping Order:</strong> Binary operations pop the <em>right operand (b)</em> first, followed by the <em>left operand (a)</em>, then compute <code className="font-mono">a op b</code>.
             </li>
+            <li>
+              <strong className="text-neutral-900 dark:text-neutral-100">Singly Linked List Implementation:</strong> In StackLab, both operator and evaluation stacks are implemented with a <em>Singly Linked List</em>. Elements are stored in individual <code className="font-mono">StackNode</code> instances with head pointer references, guaranteeing strict <code className="font-mono">O(1)</code> push, pop, and peek operations with zero array reallocation latency.
+            </li>
           </ul>
         </div>
       </div>

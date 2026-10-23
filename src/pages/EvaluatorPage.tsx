@@ -10,7 +10,9 @@ import { StackVisualizer } from '../components/StackVisualizer';
 import { OperationPanel } from '../components/OperationPanel';
 import { ExecutionControls } from '../components/ExecutionControls';
 import { StepByStepTable } from '../components/StepByStepTable';
+import { CodeExamplesSection } from '../components/CodeExamplesSection';
 import { sounds } from '../components/SoundEffects';
+import { Code2 } from 'lucide-react';
 
 interface EvaluatorPageProps {
   soundEnabled: boolean;
@@ -225,6 +227,26 @@ export const EvaluatorPage: React.FC<EvaluatorPageProps> = ({
         errorMessage={!evaluationTrace.isValid ? evaluationTrace.errorMessage : undefined}
       />
 
+      {/* Linked List Stack Status & Code Link */}
+      <div className="flex items-center justify-between text-xs px-1 -mt-2">
+        <div className="flex items-center gap-1.5 text-neutral-500 font-mono text-[11px]">
+          <span>Stack Type:</span>
+          <span className="font-semibold text-indigo-600 dark:text-indigo-400">
+            Singly Linked List (LIFO &bull; O(1))
+          </span>
+        </div>
+        <button
+          onClick={() => {
+            const el = document.getElementById('code-examples-section');
+            el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 transition cursor-pointer"
+        >
+          <Code2 className="w-3.5 h-3.5" />
+          <span>View Source Code</span>
+        </button>
+      </div>
+
       {/* 2. Token Queue Ribbon */}
       <TokenVisualizer
         tokens={evaluationTrace.tokens}
@@ -321,6 +343,9 @@ export const EvaluatorPage: React.FC<EvaluatorPageProps> = ({
         onSelectStep={handleStepChange}
         mode="evaluator"
       />
+
+      {/* 7. Source Code Examples (Linked List Stack & Postfix Evaluator) */}
+      <CodeExamplesSection mode="evaluator" reducedMotion={reducedMotion} />
     </div>
   );
 };
