@@ -123,8 +123,9 @@ export const EvaluatorPage: React.FC<EvaluatorPageProps> = ({
   // Handle evaluate click: reset step, start playing, and navigate to the operand stack section
   const handleEvaluateAndPlay = useCallback(() => {
     setEvalStepIndex(0);
-    setIsPlaying(true);
+    setIsPlaying(false);
     setTimeout(() => {
+      setIsPlaying(true);
       stackSectionRef.current?.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
@@ -164,22 +165,34 @@ export const EvaluatorPage: React.FC<EvaluatorPageProps> = ({
     [evaluationTrace.steps, playStepEffects]
   );
 
-  // Auto-play interval
-  const playTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  // Toggle play/pause: if at the end of the steps, restart from 0
+  const handleTogglePlay = useCallback(() => {
+    if (evaluationTrace.steps.length <= 1) return;
+    setIsPlaying((prev) => {
+      if (!prev) {
+        if (evalStepIndex >= evaluationTrace.steps.length - 1) {
+          setEvalStepIndex(0);
+        }
+        return true;
+      }
+      return false;
+    });
+  }, [evalStepIndex, evaluationTrace.steps.length]);
+
+  // Auto-play interval using saved callback pattern
+  const handleNextRef = useRef(handleNext);
+  useEffect(() => {
+    handleNextRef.current = handleNext;
+  });
 
   useEffect(() => {
-    if (isPlaying) {
-      const intervalMs = Math.round(1000 / speed);
-      playTimerRef.current = setInterval(() => {
-        handleNext();
-      }, intervalMs);
-    } else {
-      if (playTimerRef.current) clearInterval(playTimerRef.current);
-    }
-    return () => {
-      if (playTimerRef.current) clearInterval(playTimerRef.current);
-    };
-  }, [isPlaying, speed, handleNext]);
+    if (!isPlaying) return;
+    const intervalMs = Math.round(1000 / speed);
+    const timerId = setInterval(() => {
+      handleNextRef.current();
+    }, intervalMs);
+    return () => clearInterval(timerId);
+  }, [isPlaying, speed]);
 
   // Keyboard navigation shortcuts
   useEffect(() => {
@@ -189,7 +202,7 @@ export const EvaluatorPage: React.FC<EvaluatorPageProps> = ({
       }
       if (e.code === 'Space') {
         e.preventDefault();
-        setIsPlaying((prev) => !prev);
+        handleTogglePlay();
       } else if (e.code === 'ArrowRight') {
         e.preventDefault();
         setIsPlaying(false);
@@ -206,7 +219,7 @@ export const EvaluatorPage: React.FC<EvaluatorPageProps> = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleNext, handlePrevious, handleReset]);
+  }, [handleTogglePlay, handleNext, handlePrevious, handleReset]);
 
   return (
     <div className="flex flex-col gap-3.5 sm:gap-6">
@@ -270,7 +283,7 @@ export const EvaluatorPage: React.FC<EvaluatorPageProps> = ({
         reducedMotion={reducedMotion}
         onPrevious={handlePrevious}
         onNext={handleNext}
-        onTogglePlay={() => setIsPlaying((p) => !p)}
+        onTogglePlay={handleTogglePlay}
         onReset={handleReset}
         onStepChange={handleStepChange}
         onSpeedChange={setSpeed}

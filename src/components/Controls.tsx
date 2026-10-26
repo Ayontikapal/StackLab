@@ -104,13 +104,17 @@ export const Controls: React.FC<ControlsProps> = ({
 
           {/* Play / Pause Primary Action */}
           <button
+            type="button"
             onClick={onTogglePlay}
+            disabled={totalSteps <= 1}
             id="control-play-btn"
-            title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
-            className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all flex items-center gap-2 cursor-pointer shadow-lg active:scale-95 ${
-              isPlaying
-                ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-amber-500/20'
-                : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold shadow-cyan-500/30'
+            title={totalSteps <= 1 ? 'No steps to play' : (isPlaying ? 'Pause (Space)' : 'Play (Space)')}
+            className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all flex items-center gap-2 shadow-lg active:scale-95 ${
+              totalSteps <= 1
+                ? 'opacity-40 cursor-not-allowed bg-slate-900/40 text-slate-600 border border-slate-800'
+                : isPlaying
+                  ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-amber-500/20 cursor-pointer'
+                  : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold shadow-cyan-500/30 cursor-pointer'
             }`}
           >
             {isPlaying ? (

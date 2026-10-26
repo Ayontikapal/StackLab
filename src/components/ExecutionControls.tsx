@@ -81,6 +81,7 @@ export const ExecutionControls: React.FC<ExecutionControlsProps> = ({
         <div className="flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
           {/* Reset Button */}
           <button
+            type="button"
             onClick={onReset}
             id="control-reset-btn"
             title="Reset to beginning (Key: R)"
@@ -91,6 +92,7 @@ export const ExecutionControls: React.FC<ExecutionControlsProps> = ({
 
           {/* Previous Step */}
           <button
+            type="button"
             onClick={onPrevious}
             disabled={isFirst}
             id="control-prev-btn"
@@ -106,13 +108,24 @@ export const ExecutionControls: React.FC<ExecutionControlsProps> = ({
 
           {/* Play / Pause Primary Action */}
           <button
+            type="button"
             onClick={onTogglePlay}
+            disabled={totalSteps <= 1}
             id="control-play-btn"
-            title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
-            className={`flex-1.2 sm:flex-none h-10 sm:h-auto px-3.5 sm:px-4 sm:py-2 rounded-lg text-xs font-semibold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${isPlaying
-                ? 'bg-amber-600 hover:bg-amber-700 text-white'
-                : 'bg-indigo-600 hover:bg-indigo-700 text-white'
-              }`}
+            title={
+              totalSteps <= 1
+                ? 'No steps to play'
+                : isPlaying
+                  ? 'Pause (Space)'
+                  : 'Play (Space)'
+            }
+            className={`flex-1.2 sm:flex-none h-10 sm:h-auto px-3.5 sm:px-4 sm:py-2 rounded-lg text-xs font-semibold transition-all shadow-xs flex items-center justify-center gap-1.5 active:scale-95 ${
+              totalSteps <= 1
+                ? 'opacity-40 cursor-not-allowed bg-neutral-200 dark:bg-neutral-800 text-neutral-500'
+                : isPlaying
+                  ? 'bg-amber-600 hover:bg-amber-700 text-white cursor-pointer'
+                  : 'bg-indigo-600 hover:bg-indigo-700 text-white cursor-pointer'
+            }`}
           >
             {isPlaying ? (
               <>
@@ -129,13 +142,14 @@ export const ExecutionControls: React.FC<ExecutionControlsProps> = ({
 
           {/* Next Step */}
           <button
+            type="button"
             onClick={onNext}
             disabled={isLast}
             id="control-next-btn"
             title="Next Step (Right Arrow)"
-            className={`flex-1.2 sm:flex-none h-10 sm:h-auto px-3 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${isLast
+            className={`flex-1.2 sm:flex-none h-10 sm:h-auto px-3 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 active:scale-95 ${isLast
                 ? 'opacity-40 cursor-not-allowed bg-neutral-200 dark:bg-neutral-800 text-neutral-500'
-                : 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-100 shadow-xs'
+                : 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-100 shadow-xs cursor-pointer'
               }`}
           >
             <span>Next</span>
